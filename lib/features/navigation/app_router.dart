@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pizza_elementary/features/pizza/screens/pizza/pizza_screen.dart';
 import 'package:pizza_elementary/features/test_start/test_start_screen.dart';
 
 /// Навигация
@@ -10,8 +11,8 @@ abstract class AppRouter {
   ) {
     switch (settings.name) {
       case AppRouter.root:
-        return MaterialPageRoute<TestStartScreen>(
-          builder: (_) => const TestStartScreen(),
+        return MaterialPageRoute<PizzaScreen>(
+          builder: (_) => const PizzaScreen(),
         );
       default:
         return MaterialPageRoute<TestStartScreen>(
