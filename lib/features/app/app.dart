@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pizza_elementary/assets/themes/themes.dart';
 import 'package:pizza_elementary/features/app/di/app_scope.dart';
 import 'package:pizza_elementary/features/common/widgets/di_scope/di_scope.dart';
 import 'package:pizza_elementary/features/navigation/app_router.dart';
@@ -29,16 +30,18 @@ class _AppState extends State<App> {
       factory: () {
         return _scope;
       },
-      child: const MaterialApp(
+      child: MaterialApp(
         initialRoute: AppRouter.root,
         onGenerateRoute: AppRouter.generateRoute,
-        localizationsDelegates: [
+        localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [Locale('ru', 'RU')],
-        locale: Locale('ru'),
+        supportedLocales: const [Locale('ru', 'RU')],
+        locale:const  Locale('ru'),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
       ),
     );
   }

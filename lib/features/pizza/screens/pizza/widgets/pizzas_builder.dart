@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/pizza.dart';
+import 'package:pizza_elementary/features/pizza/widgets/pizza_card.dart';
 
 typedef FutureVoidCallback = Future<void> Function();
 
@@ -20,7 +21,7 @@ class PizzasBuilder extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (_, index) => Padding(
           padding: const EdgeInsets.all(24),
-          child: Text(data[index].title),
+          child: PizzaCard(pizza: data[index]),
         ),
         itemCount: data.length,
       ),
