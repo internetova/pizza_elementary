@@ -16,13 +16,11 @@ class PizzaScreen extends ElementaryWidget<IPizzaScreenWidgetModel> {
   @override
   Widget build(IPizzaScreenWidgetModel wm) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Выберите пиццу'),
-      ),
+      appBar: wm.appBar,
       body: EntityStateNotifierBuilder<List<Pizza>>(
         listenableEntityState: wm.pizzaState,
         loadingBuilder: (_, __) {
-          return const PizzasLoader();
+          return PizzasLoader(widgetsFactory: wm.widgetsFactory);
         },
         errorBuilder: (_, __, ___) {
           return const PizzasError();
