@@ -10,7 +10,7 @@ class PizzaApiMock with LoadAssetMock implements PizzaApi {
   Future<List<PizzaResponseDTO>> getAllPizzas() async {
     final pizzas = <PizzaResponseDTO>[];
 
-    await addDelay(300);
+    await addDelay(500);
     final jsonString = await loadAsset(PizzaApiUrls.allPizzas);
     final data = jsonDecode(jsonString) as Map<String, dynamic>;
 
