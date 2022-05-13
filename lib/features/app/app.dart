@@ -32,14 +32,17 @@ class _AppState extends State<App> {
       },
       child: MaterialApp(
         initialRoute: AppRouter.root,
-        onGenerateRoute: AppRouter.generateRoute,
+        onGenerateRoute: (settings) => AppRouter.generateRoute(
+          settings,
+          _scope.widgetsFactory,
+        ),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('ru', 'RU')],
-        locale:const  Locale('ru'),
+        locale: const Locale('ru'),
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
       ),
