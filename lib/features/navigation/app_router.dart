@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pizza_elementary/features/pizza/screens/pizza/pizza_screen.dart';
+import 'package:pizza_elementary/features/app/screens/main/main_screen.dart';
 import 'package:pizza_elementary/features/platform/factory/platform_widgets_factory.dart';
 import 'package:pizza_elementary/features/test_start/test_start_screen.dart';
 
@@ -14,7 +14,7 @@ abstract class AppRouter {
     switch (settings.name) {
       case AppRouter.root:
         return widgetsFactory.createPageRouter(
-          builder: (_) => const PizzaScreen(),
+          builder: (_) => const MainScreen(),
         );
       default:
         return widgetsFactory.createPageRouter(
