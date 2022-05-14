@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pizza_elementary/features/common/constants/app_strings.dart';
 
 class CupertinoBottomNavigationBar extends StatelessWidget {
@@ -14,6 +15,7 @@ class CupertinoBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabBar(
+      backgroundColor: Colors.transparent,
       currentIndex: currentIndex,
       items: const [
         BottomNavigationBarItem(
