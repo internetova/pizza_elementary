@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pizza_elementary/features/common/constants/app_strings.dart';
 
 class CupertinoBottomNavigationBar extends StatelessWidget {
@@ -19,11 +20,11 @@ class CupertinoBottomNavigationBar extends StatelessWidget {
       currentIndex: currentIndex,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.home),
+          icon: Icon(Ionicons.pizza_outline),
           label: AppStrings.bottomNavBarItemLabelHome,
         ),
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.shopping_cart),
+          icon: Icon(Ionicons.cart_outline),
           label: AppStrings.bottomNavBarItemLabelCart,
         ),
       ],
