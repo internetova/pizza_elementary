@@ -1,40 +1,64 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:pizza_elementary/assets/themes/themes.dart';
 import 'package:pizza_elementary/features/common/constants/app_sizes.dart';
-import 'package:pizza_elementary/features/common/widgets/buttons/text_button_with_icon.dart';
 import 'package:pizza_elementary/features/pizza/constants/pizza_strings.dart';
+import 'package:pizza_elementary/features/pizza/domain/entity/ingredients_type.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/pizza.dart';
 import 'package:pizza_elementary/util/money_formatter.dart';
+import 'package:pizza_elementary/util/typedefs.dart';
 
 class PizzaCard extends StatelessWidget {
   final Pizza pizza;
+  final ValueChanged<Pizza> goPizzaDetails;
+  final DataValueChanged<List<IngredientsType>, String> getIngredients;
 
-  const PizzaCard({Key? key, required this.pizza}) : super(key: key);
+  const PizzaCard({
+    Key? key,
+    required this.pizza,
+    required this.goPizzaDetails,
+    required this.getIngredients,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 3 / 2,
+      aspectRatio: 3 / 1.8,
       child: Material(
         borderRadius: BorderRadius.circular(AppSizes.radiusCard),
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).cardColor,
-        child: Row(
+        child: Stack(
           children: [
-            Expanded(
-              child: SizedBox.expand(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(pizza.imageUrl),
-                      fit: BoxFit.cover,
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox.expand(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(pizza.imageUrl),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                Expanded(
+                  child: _PizzaCardContent(
+                    pizza: pizza,
+                    getIngredients: getIngredients,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: _PizzaCardContent(pizza: pizza),
+            Positioned.fill(
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  onTap: () => goPizzaDetails(pizza),
+                ),
+              ),
             ),
           ],
         ),
@@ -45,8 +69,13 @@ class PizzaCard extends StatelessWidget {
 
 class _PizzaCardContent extends StatelessWidget {
   final Pizza pizza;
+  final DataValueChanged<List<IngredientsType>, String> getIngredients;
 
-  const _PizzaCardContent({Key? key, required this.pizza}) : super(key: key);
+  const _PizzaCardContent({
+    Key? key,
+    required this.pizza,
+    required this.getIngredients,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,24 +92,26 @@ class _PizzaCardContent extends StatelessWidget {
           ),
           AppSizes.sizedBoxH12,
           Text(
-            pizza.description,
-            maxLines: 3,
+            getIngredients(pizza.ingredients),
+            maxLines: 4,
             overflow: TextOverflow.ellipsis,
+            style: theme.textTheme.caption,
           ),
           const Spacer(),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              moneyFormatter.format(pizza.price),
-              style: theme.textTheme.headline6?.copyWith(color: theme.errorColor),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: theme.colorScheme.green,
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButtonWithIcon(
-              icon: EvaIcons.shoppingCartOutline,
-              label: PizzaStrings.buttonTitleAddCart,
-              onPressed: () {},
+            child: SizedBox(
+              width: 120,
+              height: 34,
+              child: Align(
+                child: Text(
+                  PizzaStrings.from + moneyFormatter.format(pizza.price),
+                  style: theme.textTheme.headline6?.copyWith(color: theme.cardColor),
+                ),
+              ),
             ),
           ),
         ],
