@@ -29,6 +29,8 @@ class PizzaScreen extends ElementaryWidget<IPizzaScreenWidgetModel> {
           return PizzasBuilder(
             data: data ?? [],
             refreshPlaces: wm.refreshPizzas,
+            goPizzaDetails: wm.goPizzaDetails,
+            getIngredients: wm.getIngredients,
           );
         },
       ),
