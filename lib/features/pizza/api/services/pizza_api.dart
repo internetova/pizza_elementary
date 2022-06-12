@@ -1,7 +1,11 @@
-import 'package:pizza_elementary/features/pizza/api/dto/pizza_response_dto.dart';
+import 'package:pizza_elementary/features/pizza/api/data/ingredients_response.dart';
+import 'package:pizza_elementary/features/pizza/api/data/pizza_response.dart';
 
 // ignore: one_member_abstracts
 abstract class PizzaApi {
   /// Получить список пицц
-  Future<List<PizzaResponseDTO>> getAllPizzas();
+  Future<List<PizzaResponse>> getAllPizzas();
+
+  /// Получить список ингредиентов
+  Future<List<IngredientsResponse>> getPizzaIngredients();
 }

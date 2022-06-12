@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pizza_elementary/features/common/constants/app_strings.dart';
 
 class MaterialBottomNavigationBar extends StatelessWidget {
@@ -17,11 +18,11 @@ class MaterialBottomNavigationBar extends StatelessWidget {
       currentIndex: currentIndex,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Ionicons.pizza_outline),
           label: AppStrings.bottomNavBarItemLabelHome,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
+          icon: Icon(Ionicons.cart_outline),
           label: AppStrings.bottomNavBarItemLabelCart,
         ),
       ],

@@ -1,14 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:pizza_elementary/features/pizza/api/dto/pizza_response_dto.dart';
+import 'package:pizza_elementary/features/pizza/api/data/ingredients_response.dart';
+import 'package:pizza_elementary/features/pizza/api/data/pizza_response.dart';
 import 'package:pizza_elementary/features/pizza/api/pizza_api_urls.dart';
 import 'package:pizza_elementary/features/pizza/api/services/pizza_api.dart';
 
 class PizzaApiMock with LoadAssetMock implements PizzaApi {
   @override
-  Future<List<PizzaResponseDTO>> getAllPizzas() async {
-    final pizzas = <PizzaResponseDTO>[];
+  Future<List<PizzaResponse>> getAllPizzas() async {
+    final pizzas = <PizzaResponse>[];
 
     await addDelay(500);
     final jsonString = await loadAsset(PizzaApiUrls.allPizzas);
@@ -18,11 +19,30 @@ class PizzaApiMock with LoadAssetMock implements PizzaApi {
 
     if (pizzasData.isNotEmpty) {
       for (final e in pizzasData) {
-        pizzas.add(PizzaResponseDTO.fromJson(e as Map<String, dynamic>));
+        pizzas.add(PizzaResponse.fromJson(e as Map<String, dynamic>));
       }
     }
 
     return pizzas;
+  }
+
+  @override
+  Future<List<IngredientsResponse>> getPizzaIngredients() async {
+    final ingredients = <IngredientsResponse>[];
+
+    await addDelay(300);
+    final jsonString = await loadAsset(PizzaApiUrls.ingredients);
+    final data = jsonDecode(jsonString) as Map<String, dynamic>;
+
+    final ingredientsData = data['ingredients'] as List;
+
+    if (ingredientsData.isNotEmpty) {
+      for (final e in ingredientsData) {
+        ingredients.add(IngredientsResponse.fromJson(e as Map<String, dynamic>));
+      }
+    }
+
+    return ingredients;
   }
 }
 

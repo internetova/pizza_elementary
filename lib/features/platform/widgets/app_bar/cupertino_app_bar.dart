@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -15,7 +16,10 @@ class CupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return CupertinoNavigationBar(
+      backgroundColor: theme.cardColor,
       middle: Text(title),
     );
   }

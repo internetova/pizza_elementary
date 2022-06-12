@@ -1,0 +1,79 @@
+{
+  "ingredients": [
+    {
+      "name": "бекон",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/bacon.png"
+    },
+    {
+      "name": "пикантная пепперони",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/pepperoni.png"
+    },
+    {
+      "name": "ветчина",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/ham.png"
+    },
+    {
+      "name": "свежие томаты",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/tomatoes.png"
+    },
+    {
+      "name": "шампиньоны",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/champignons.png"
+    },
+    {
+      "name": "маринованные огурчики",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/pickledCucumbers.png"
+    },
+    {
+      "name": "сладкий перец",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/sweetPepper.png"
+    },
+    {
+      "name": "красный лук",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/redOnion.png"
+    },
+    {
+      "name": "острый перец халапеньо",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/jalapeno.png"
+    },
+    {
+      "name": "сочный ананас",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/pineapple.png"
+    },
+    {
+      "name": "итальянские травы",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/italianHerbs.png"
+    },
+    {
+      "name": "сыры чеддер и пармезан",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/cheddarAndParmesan.png"
+    },
+    {
+      "name": "моцарелла",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/mozzarella.png"
+    },
+    {
+      "name": "маслины",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/olives.png"
+    },
+    {
+      "name": "нежный цыпленок",
+      "price": 59,
+      "imageUrl": "assets/images/ingredients/chicken.png"
+    }
+  ]
+}
