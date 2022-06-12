@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pizza_elementary/assets/colors/colors.dart';
+import 'package:pizza_elementary/assets/themes/custom_colors.dart';
 import 'package:pizza_elementary/assets/themes/text_style.dart';
 
 class AppTheme {
@@ -30,6 +31,9 @@ class AppTheme {
         onPrimary: AppColors.lightOnPrimaryColor,
         primary: AppColors.lightPrimaryColorDark,
       ),
+      extensions: <ThemeExtension<dynamic>>[
+        CustomColors.light,
+      ],
       appBarTheme: base.appBarTheme.copyWith(
         color: AppColors.lightPrimaryColor,
         titleTextStyle:
@@ -159,6 +163,9 @@ class AppTheme {
         onPrimary: AppColors.darkOnPrimaryColor,
         primary: AppColors.colorWhite,
       ),
+      extensions: <ThemeExtension<dynamic>>[
+        CustomColors.dark,
+      ],
       appBarTheme: base.appBarTheme.copyWith(
         color: AppColors.darkPrimaryColor,
         titleTextStyle: AppTypography.textSubtitle18Medium.copyWith(color: AppColors.colorWhite),
