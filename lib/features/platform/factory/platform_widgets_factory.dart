@@ -15,4 +15,20 @@ abstract class PlatformWidgetsFactory {
   PageRoute createPageRouter({
     required WidgetBuilder builder,
   });
+
+  Future openModalBottomSheet({
+    required BuildContext context,
+    required WidgetBuilder builder,
+  });
+
+  Widget createButton({
+    required Widget child,
+    required VoidCallback? onPressed,
+  });
+
+  Widget createBottomSheet({
+    required Widget child,
+  });
+
+  Widget createSizedBox();
 }
