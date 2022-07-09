@@ -3,14 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pizza_elementary/features/app/di/app_scope.dart';
 import 'package:pizza_elementary/features/common/constants/app_sizes.dart';
-import 'package:pizza_elementary/features/pizza/constants/pizza_strings.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/custom_pizza.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/ingredient.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/ingredients_type.dart';
 import 'package:pizza_elementary/features/pizza/screens/details/pizza_details_screen.dart';
 import 'package:pizza_elementary/features/pizza/screens/details/pizza_details_screen_model.dart';
 import 'package:pizza_elementary/features/platform/factory/platform_widgets_factory.dart';
-import 'package:pizza_elementary/util/money_formatter.dart';
 import 'package:provider/provider.dart';
 
 abstract class IPizzaDetailsScreenWidgetModel extends IWidgetModel {
@@ -18,19 +16,19 @@ abstract class IPizzaDetailsScreenWidgetModel extends IWidgetModel {
 
   ListenableState<Set<IngredientsType>> get additionalIngredientsState;
 
+  ListenableState<int> get finalPriceState;
+
   ThemeData get theme;
 
   PlatformWidgetsFactory get widgetsFactory;
-
-  Widget get bottomSheet;
-
-  Widget get orderButton;
 
   double get indentationUnderBottomSheet;
 
   String getIngredients();
 
   void toggleIngredient(IngredientsType ingredientsType, int price);
+
+  void addToCart();
 
   void close();
 }
@@ -77,36 +75,13 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
       _additionalIngredientsState;
 
   @override
+  ListenableState<int> get finalPriceState => _finalPriceState;
+
+  @override
   ThemeData get theme => Theme.of(context);
 
   @override
   PlatformWidgetsFactory get widgetsFactory => model.widgetsFactory;
-
-  @override
-  Widget get bottomSheet => widgetsFactory.createBottomSheet(
-        child: orderButton,
-      );
-
-  @override
-  Widget get orderButton => widgetsFactory.createButton(
-        child: StateNotifierBuilder<int>(
-          listenableState: _finalPriceState,
-          builder: (_, price) {
-            return Text(
-              PizzaStrings.buttonTitleAddCart + moneyFormatter.format(price),
-              style: const TextStyle(color: Colors.white),
-            );
-          },
-        ),
-        onPressed: () {
-          _calculateFinalPrice();
-
-          /// создаем финальную пиццу
-          final customPizza = _pizzaBuilder.build();
-          debugPrint('🟡 customPizza \n$customPizza');
-          _addToCart(customPizza);
-        },
-      );
 
   @override
   double get indentationUnderBottomSheet => defaultTargetPlatform == TargetPlatform.iOS
@@ -169,6 +144,19 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
     _navigator.pop();
   }
 
+  /// Добавить в корзину и закрыть окно
+  @override
+  void addToCart() {
+    _calculateFinalPrice();
+
+    /// создаем финальную пиццу
+    final customPizza = _pizzaBuilder.build();
+    debugPrint('🍕🍕🍕 customPizza \n$customPizza');
+
+    model.addToCart(customPizza);
+    close();
+  }
+
   /// Финальная цена для кнопки заказа
   void _calculateFinalPrice() {
     final basePrice = widget.pizza.price;
@@ -195,11 +183,5 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
       ..setBase(widget.pizza.base)
       ..setSauce(widget.pizza.sauce)
       ..setImageUrl(widget.pizza.imageUrl);
-  }
-
-  /// Добавить в корзину и закрыть окно
-  void _addToCart(CustomPizza pizza) {
-    model.addToCart(pizza);
-    close();
   }
 }

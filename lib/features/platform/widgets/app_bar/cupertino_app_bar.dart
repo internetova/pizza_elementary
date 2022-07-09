@@ -24,6 +24,7 @@ class CupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: theme.cardColor,
       middle: Text(title),
       trailing: actionButton,
+      transitionBetweenRoutes: false,
     );
   }
 }

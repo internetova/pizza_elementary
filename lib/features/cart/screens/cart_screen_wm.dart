@@ -87,10 +87,10 @@ class CartScreenWidgetModel extends WidgetModel<CartScreen, CartScreenModel>
 
     /// Отправляем заказ
     if (isYes != null && isYes) {
-      debugPrint('🟢-------- заказ отправлен');
+      debugPrint('🟢--------Подтверждение заказа: заказ отправлен');
       model.clear();
     } else {
-      debugPrint('🔴-------- надо еще подумать');
+      debugPrint('🔴--------Подтверждение заказа: надо еще подумать');
     }
   }
 

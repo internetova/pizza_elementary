@@ -12,6 +12,8 @@ import 'package:pizza_elementary/features/pizza/screens/details/pizza_details_sc
 import 'package:pizza_elementary/features/pizza/screens/details/widgets/ingredients_builder.dart';
 import 'package:pizza_elementary/features/pizza/screens/details/widgets/ingredients_error.dart';
 import 'package:pizza_elementary/features/pizza/screens/details/widgets/ingredients_loader.dart';
+import 'package:pizza_elementary/features/platform/factory/platform_widgets_factory.dart';
+import 'package:pizza_elementary/util/money_formatter.dart';
 import 'package:surf_util/surf_util.dart';
 
 /// Main widget for PizzaDetailsScreen module
@@ -76,7 +78,14 @@ class PizzaDetailsScreen extends ElementaryWidget<IPizzaDetailsScreenWidgetModel
           ],
         ),
       ),
-      bottomSheet: wm.bottomSheet,
+      bottomSheet: _BottomSheet(
+        widgetsFactory: wm.widgetsFactory,
+        child: _BottomButton(
+          widgetsFactory: wm.widgetsFactory,
+          finalPriceState: wm.finalPriceState,
+          addToCart: wm.addToCart,
+        ),
+      ),
     );
   }
 }
@@ -129,6 +138,56 @@ class _BuildPizzaDescription extends StatelessWidget {
           Text(PizzaStrings.addIngredients, style: theme.textTheme.headline5),
         ],
       ),
+    );
+  }
+}
+
+/// Боттомшит для кнопки
+/// Для разных платформ разные отступы
+class _BottomSheet extends StatelessWidget {
+  final PlatformWidgetsFactory widgetsFactory;
+  final Widget child;
+
+  const _BottomSheet({
+    Key? key,
+    required this.widgetsFactory,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return widgetsFactory.createBottomSheet(
+      child: child,
+    );
+  }
+}
+
+/// Кнопка добавить в корзину
+class _BottomButton extends StatelessWidget {
+  final PlatformWidgetsFactory widgetsFactory;
+  final ListenableState<int> finalPriceState;
+  final VoidCallback addToCart;
+
+  const _BottomButton({
+    Key? key,
+    required this.widgetsFactory,
+    required this.finalPriceState,
+    required this.addToCart,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return widgetsFactory.createButton(
+      child: StateNotifierBuilder<int>(
+        listenableState: finalPriceState,
+        builder: (_, price) {
+          return Text(
+            PizzaStrings.buttonTitleAddCart + moneyFormatter.format(price),
+            style: const TextStyle(color: Colors.white),
+          );
+        },
+      ),
+      onPressed: addToCart,
     );
   }
 }
