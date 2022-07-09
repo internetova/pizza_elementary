@@ -57,7 +57,7 @@ class PizzaDetailsScreen extends ElementaryWidget<IPizzaDetailsScreenWidgetModel
                       );
                     },
                   ),
-                  wm.sizedBox,
+                  SizedBox(height: wm.indentationUnderBottomSheet),
                 ],
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:elementary/elementary.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pizza_elementary/features/app/di/app_scope.dart';
+import 'package:pizza_elementary/features/common/constants/app_sizes.dart';
 import 'package:pizza_elementary/features/pizza/constants/pizza_strings.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/custom_pizza.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/ingredient.dart';
@@ -24,7 +26,7 @@ abstract class IPizzaDetailsScreenWidgetModel extends IWidgetModel {
 
   Widget get orderButton;
 
-  Widget get sizedBox;
+  double get indentationUnderBottomSheet;
 
   String getIngredients();
 
@@ -41,6 +43,7 @@ PizzaDetailsScreenWidgetModel defaultPizzaDetailsScreenWidgetModelFactory(BuildC
     appDependencies.errorHandler,
     appDependencies.pizzaService,
     appDependencies.widgetsFactory,
+    appDependencies.cartStore,
   );
 
   return PizzaDetailsScreenWidgetModel(model, navigator);
@@ -96,13 +99,19 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
           },
         ),
         onPressed: () {
+          _calculateFinalPrice();
+
+          /// создаем финальную пиццу
           final customPizza = _pizzaBuilder.build();
-          debugPrint('--------customPizza \n$customPizza');
+          debugPrint('🟡 customPizza \n$customPizza');
+          _addToCart(customPizza);
         },
       );
 
   @override
-  Widget get sizedBox => widgetsFactory.createSizedBox();
+  double get indentationUnderBottomSheet => defaultTargetPlatform == TargetPlatform.iOS
+      ? AppSizes.cupertinoIndentationUnderBottomSheet
+      : AppSizes.materialIndentationUnderBottomSheet;
 
   PizzaDetailsScreenWidgetModel(
     PizzaDetailsScreenModel model,
@@ -126,11 +135,9 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
     for (var i = 0; i < ingredients.length; i++) {
       var str = '';
 
-      if (i == ingredients.length - 1) {
-        str = '${ingredients[i].name}, ${widget.pizza.sauce.name}.';
-      } else {
-        str = '${ingredients[i].name}, ';
-      }
+      str = i == ingredients.length - 1
+          ? '${ingredients[i].name}, ${widget.pizza.sauce.name}.'
+          : '${ingredients[i].name}, ';
 
       buffer.write(str);
     }
@@ -152,9 +159,8 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
     _additionalIngredientsState.accept(items);
     _calculateFinalPrice();
 
-    _pizzaBuilder
-      ..setIngredients(_additionalIngredientsState.value!)
-      ..setPrice(_finalPriceState.value!);
+    /// добавим дополнительные ингредиенты
+    _pizzaBuilder.setIngredients(_additionalIngredientsState.value!);
   }
 
   /// Закрыть деталку с пиццей
@@ -166,9 +172,16 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
   /// Финальная цена для кнопки заказа
   void _calculateFinalPrice() {
     final basePrice = widget.pizza.price;
-    final additionalPrice = _additionalIngredientsMap.values.reduce((a, b) => a + b);
+    var finalPrice = basePrice;
 
-    _finalPriceState.accept(basePrice + additionalPrice);
+    if (_additionalIngredientsMap.isNotEmpty) {
+      finalPrice += _additionalIngredientsMap.values.reduce((a, b) => a + b);
+    }
+
+    _finalPriceState.accept(finalPrice);
+
+    /// добавим финальную цену
+    _pizzaBuilder.setPrice(_finalPriceState.value!);
   }
 
   Future<void> _init() async {
@@ -182,5 +195,11 @@ class PizzaDetailsScreenWidgetModel extends WidgetModel<PizzaDetailsScreen, Pizz
       ..setBase(widget.pizza.base)
       ..setSauce(widget.pizza.sauce)
       ..setImageUrl(widget.pizza.imageUrl);
+  }
+
+  /// Добавить в корзину и закрыть окно
+  void _addToCart(CustomPizza pizza) {
+    model.addToCart(pizza);
+    close();
   }
 }
