@@ -14,6 +14,8 @@ class CustomPizza {
   late final int price;
   late final String? imageUrl;
 
+  static PizzaBuilder get builder => PizzaBuilder();
+
   CustomPizza(PizzaBuilder builder) {
     title = builder.title;
     base = builder.base;
@@ -43,19 +45,10 @@ class CustomPizza {
 
     return info;
   }
-
-  static PizzaBuilder get builder => PizzaBuilder();
 }
 
 class PizzaBuilder {
-  String title_ = '';
-  PizzaBase _base = const PizzaBase(size: PizzaSize.M);
-  SauceType _sauce = SauceType.tomato;
-  Set<IngredientsType> _ingredients = {};
-  int _price = 0;
-  String _imageUrl = '';
-
-  String get title => title_;
+  String get title => _title;
 
   PizzaBase get base => _base;
 
@@ -67,8 +60,15 @@ class PizzaBuilder {
 
   String get imageUrl => _imageUrl;
 
+  String _title = '';
+  PizzaBase _base = const PizzaBase(size: PizzaSize.M);
+  SauceType _sauce = SauceType.tomato;
+  Set<IngredientsType> _ingredients = {};
+  int _price = 0;
+  String _imageUrl = '';
+
   // ignore: use_setters_to_change_properties
-  void setTitle(String title) => title_ = title;
+  void setTitle(String title) => _title = title;
 
   // ignore: use_setters_to_change_properties
   void setBase(PizzaBase base) => _base = base;
