@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pizza_elementary/features/platform/factory/platform_widgets_factory.dart';
 import 'package:pizza_elementary/features/platform/widgets/cupertino_widgets.dart';
@@ -10,8 +9,9 @@ class CupertinoWidgetsFactory implements PlatformWidgetsFactory {
   @override
   PreferredSizeWidget createAppBar({
     required String title,
+    Widget? actionButton,
   }) {
-    return CupertinoAppBar(title: title);
+    return CupertinoAppBar(title: title, actionButton: actionButton);
   }
 
   @override
@@ -65,7 +65,33 @@ class CupertinoWidgetsFactory implements PlatformWidgetsFactory {
   }
 
   @override
-  Widget createSizedBox() {
-    return const CupertinoSizedBox();
+  // ignore: long-parameter-list
+  Widget createAlertDialog({
+    required String title,
+    String? content,
+    required String titleLeftButton,
+    required VoidCallback onLeftButton,
+    required String titleRightButton,
+    required VoidCallback onRightButton,
+  }) {
+    return CupertinoAlertDialogApp(
+      title: title,
+      content: content,
+      titleLeftButton: titleLeftButton,
+      onLeftButton: onLeftButton,
+      titleRightButton: titleRightButton,
+      onRightButton: onRightButton,
+    );
+  }
+
+  @override
+  Future<T?> openAlertDialog<T>({
+    required BuildContext context,
+    required WidgetBuilder builder,
+  }) {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: builder,
+    );
   }
 }
