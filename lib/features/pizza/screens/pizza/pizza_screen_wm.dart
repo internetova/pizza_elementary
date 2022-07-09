@@ -1,7 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:pizza_elementary/features/app/di/app_scope.dart';
-import 'package:pizza_elementary/features/pizza/constants/pizza_strings.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/ingredients_type.dart';
 import 'package:pizza_elementary/features/pizza/domain/entity/pizza.dart';
 import 'package:pizza_elementary/features/pizza/screens/details/pizza_details_screen.dart';
@@ -15,8 +14,6 @@ abstract class IPizzaScreenWidgetModel extends IWidgetModel {
   ListenableState<EntityState<List<Pizza>>> get pizzaState;
 
   PlatformWidgetsFactory get widgetsFactory;
-
-  PreferredSizeWidget get appBar;
 
   Future<void> refreshPizzas();
 
@@ -47,9 +44,6 @@ class PizzaScreenWidgetModel extends WidgetModel<PizzaScreen, PizzaScreenModel>
 
   @override
   PlatformWidgetsFactory get widgetsFactory => model.widgetsFactory;
-
-  @override
-  PreferredSizeWidget get appBar => widgetsFactory.createAppBar(title: PizzaStrings.appBarTitle);
 
   PizzaScreenWidgetModel(PizzaScreenModel model) : super(model);
 
