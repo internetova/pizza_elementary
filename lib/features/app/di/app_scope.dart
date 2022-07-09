@@ -1,5 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pizza_elementary/features/common/stores/cart_store.dart';
 import 'package:pizza_elementary/features/pizza/api/services/pizza_api.dart';
 import 'package:pizza_elementary/features/pizza/api/services/pizza_api_mock.dart';
 import 'package:pizza_elementary/features/pizza/domain/repository/pizza_repository.dart';
@@ -18,6 +19,8 @@ class AppScope implements IAppScope {
   late final PizzaRepository _pizzaRepository;
   late final PizzaService _pizzaService;
 
+  late final CartStore _cartStore;
+
   @override
   ErrorHandler get errorHandler => _errorHandler;
 
@@ -26,6 +29,9 @@ class AppScope implements IAppScope {
 
   @override
   PizzaService get pizzaService => _pizzaService;
+
+  @override
+  CartStore get cartStore => _cartStore;
 
   /// Create an instance [AppScope].
   AppScope() {
@@ -46,6 +52,8 @@ class AppScope implements IAppScope {
     _pizzaApi = PizzaApiMock();
     _pizzaRepository = PizzaRepository(_pizzaApi);
     _pizzaService = PizzaService(_pizzaRepository);
+
+    _cartStore = CartStore();
   }
 }
 
@@ -57,4 +65,6 @@ abstract class IAppScope {
   PlatformWidgetsFactory get widgetsFactory;
 
   PizzaService get pizzaService;
+
+  CartStore get cartStore;
 }
