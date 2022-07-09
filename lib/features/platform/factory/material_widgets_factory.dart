@@ -11,7 +11,7 @@ class MaterialWidgetsFactory implements PlatformWidgetsFactory {
     required String title,
     Widget? actionButton,
   }) {
-    return MaterialAppBar(title: title);
+    return MaterialAppBar(title: title, actionButton: actionButton);
   }
 
   @override
