@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pizza_elementary/features/common/constants/app_strings.dart';
+import 'package:pizza_elementary/features/common/widgets/badge/cart_badge_widget.dart';
 
 class MaterialBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -22,7 +23,7 @@ class MaterialBottomNavigationBar extends StatelessWidget {
           label: AppStrings.bottomNavBarItemLabelHome,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Ionicons.cart_outline),
+          icon: CartBadgeWidget(),
           label: AppStrings.bottomNavBarItemLabelCart,
         ),
       ],

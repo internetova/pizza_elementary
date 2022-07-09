@@ -2,6 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:pizza_elementary/assets/colors/colors.dart';
 
 class CustomColors extends ThemeExtension<CustomColors> {
+  static CustomColors light = CustomColors(
+    green: AppColors.colorWhiteGreen,
+    green2: AppColors.colorWhiteGreen2,
+    yellow: AppColors.colorWhiteYellow,
+    yellow2: AppColors.colorWhiteYellow2,
+  );
+
+  static CustomColors dark = CustomColors(
+    green: AppColors.colorBlackGreen,
+    green2: AppColors.colorBlackGreen2,
+    yellow: AppColors.colorBlackYellow,
+    yellow2: AppColors.colorBlackYellow2,
+  );
+
   final Color? green;
   final Color? green2;
   final Color? yellow;
@@ -35,6 +49,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     if (other is! CustomColors) {
       return this;
     }
+
     return CustomColors(
       green: Color.lerp(green, other.green, t),
       green2: Color.lerp(green2, other.green2, t),
@@ -42,18 +57,4 @@ class CustomColors extends ThemeExtension<CustomColors> {
       yellow2: Color.lerp(yellow2, other.yellow2, t),
     );
   }
-
-  static CustomColors light = CustomColors(
-    green: AppColors.colorWhiteGreen,
-    green2: AppColors.colorWhiteGreen2,
-    yellow: AppColors.colorWhiteYellow,
-    yellow2: AppColors.colorWhiteYellow2,
-  );
-
-  static CustomColors dark = CustomColors(
-    green: AppColors.colorBlackGreen,
-    green2: AppColors.colorBlackGreen2,
-    yellow: AppColors.colorBlackYellow,
-    yellow2: AppColors.colorBlackYellow2,
-  );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pizza_elementary/features/common/constants/app_strings.dart';
+import 'package:pizza_elementary/features/common/widgets/badge/cart_badge_widget.dart';
 
 class CupertinoBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -24,7 +25,7 @@ class CupertinoBottomNavigationBar extends StatelessWidget {
           label: AppStrings.bottomNavBarItemLabelHome,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Ionicons.cart_outline),
+          icon: CartBadgeWidget(),
           label: AppStrings.bottomNavBarItemLabelCart,
         ),
       ],

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 abstract class PlatformWidgetsFactory {
   PreferredSizeWidget createAppBar({
     required String title,
+    Widget? actionButton,
   });
 
   Widget createBottomNavigationBar({
@@ -30,5 +31,18 @@ abstract class PlatformWidgetsFactory {
     required Widget child,
   });
 
-  Widget createSizedBox();
+  // ignore: long-parameter-list
+  Widget createAlertDialog({
+    required String title,
+    String? content,
+    required String titleLeftButton,
+    required VoidCallback onLeftButton,
+    required String titleRightButton,
+    required VoidCallback onRightButton,
+  });
+
+  Future<T?> openAlertDialog<T>({
+    required BuildContext context,
+    required WidgetBuilder builder,
+  });
 }

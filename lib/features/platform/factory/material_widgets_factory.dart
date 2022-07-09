@@ -9,8 +9,9 @@ class MaterialWidgetsFactory implements PlatformWidgetsFactory {
   @override
   PreferredSizeWidget createAppBar({
     required String title,
+    Widget? actionButton,
   }) {
-    return MaterialAppBar(title: title);
+    return MaterialAppBar(title: title, actionButton: actionButton);
   }
 
   @override
@@ -64,7 +65,33 @@ class MaterialWidgetsFactory implements PlatformWidgetsFactory {
   }
 
   @override
-  Widget createSizedBox() {
-    return const MaterialSizedBox();
+  // ignore: long-parameter-list
+  Widget createAlertDialog({
+    required String title,
+    String? content,
+    required String titleLeftButton,
+    required VoidCallback onLeftButton,
+    required String titleRightButton,
+    required VoidCallback onRightButton,
+  }) {
+    return MaterialAlertDialogApp(
+      title: title,
+      content: content,
+      titleLeftButton: titleLeftButton,
+      onLeftButton: onLeftButton,
+      titleRightButton: titleRightButton,
+      onRightButton: onRightButton,
+    );
+  }
+
+  @override
+  Future<T?> openAlertDialog<T>({
+    required BuildContext context,
+    required WidgetBuilder builder,
+  }) {
+    return showDialog<T>(
+      context: context,
+      builder: builder,
+    );
   }
 }

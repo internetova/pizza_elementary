@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class CupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final Widget? actionButton;
 
   @override
   Size get preferredSize => const Size.fromHeight(
@@ -11,6 +12,7 @@ class CupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CupertinoAppBar({
     required this.title,
+    this.actionButton,
     Key? key,
   }) : super(key: key);
 
@@ -21,6 +23,7 @@ class CupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
     return CupertinoNavigationBar(
       backgroundColor: theme.cardColor,
       middle: Text(title),
+      trailing: actionButton,
     );
   }
 }

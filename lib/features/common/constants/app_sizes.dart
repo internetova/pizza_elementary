@@ -17,5 +17,9 @@ class AppSizes {
   static const sizedBoxH16 = SizedBox(height: 16);
   static const sizedBoxH24 = SizedBox(height: 24);
 
+  /// отступ под боттомшит чтобы прокрутить контент под ним
+  static const cupertinoIndentationUnderBottomSheet = 120.0;
+  static const materialIndentationUnderBottomSheet = 100.0;
+
   AppSizes._();
 }
