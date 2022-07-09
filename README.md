@@ -1,16 +1,32 @@
 # pizza_elementary
 
-A new Flutter project.
+Пример реализации проекта на **elementary** + **mobx** c использованием паттернов проектирования GOF абстрактная фабрика, билдер.
 
-## Getting Started
+https://pub.dev/packages/elementary
 
-This project is a starting point for a Flutter application.
+Mobx использовался для реализации корзины заказов.
 
-A few resources to get you started if this is your first Flutter project:
+Паттерн **абстрактная фабрика** использовался для реализации платформенных виджетов:
+- Апп бар: CupertinoNavigationBar / AppBar
+- Нижняя навигация: CupertinoTabBar / BottomNavigationBar
+- Алерт диалоги: CupertinoAlertDialog / AlertDialog
+- Кнопка заказа: CupertinoButton / ElevatedButton
+- Индикатор загрузки: CupertinoActivityIndicator / CircularProgressIndicator
+- PageRoute: CupertinoPageRouter / MaterialPageRouter
+- BottomSheet: пакет modal_bottom_sheet
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Паттерн **билдер** использовался для создания кастомных экземпляров пиццы
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo
+
+![Demo ios](docs/demo-ios.gif) ![Demo Android](docs/demo-andr.gif)
+
+## Фото
+
+![Фото](docs/1.png)
+
+![Фото](docs/2.png)
+
+![Фото](docs/3.png)
+
+![Фото](docs/4.png)
