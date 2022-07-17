@@ -11,8 +11,6 @@ abstract class IMainScreenWidgetModel extends IWidgetModel {
 
   PlatformWidgetsFactory get widgetsFactory;
 
-  Widget get bottomNavigationBar;
-
   void switchTab(int tabIndex);
 }
 
@@ -33,12 +31,6 @@ class MainScreenWidgetModel extends WidgetModel<MainScreen, MainScreenModel>
 
   @override
   PlatformWidgetsFactory get widgetsFactory => model.widgetsFactory;
-
-  @override
-  Widget get bottomNavigationBar => widgetsFactory.createBottomNavigationBar(
-        currentIndex: _tabState.value ?? 0,
-        onTap: switchTab,
-      );
 
   MainScreenWidgetModel(MainScreenModel model) : super(model);
 
