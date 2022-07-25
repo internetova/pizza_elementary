@@ -35,6 +35,14 @@ class AppScope implements IAppScope {
 
   /// Create an instance [AppScope].
   AppScope() {
+    /// CODE REVIEW
+    /// 
+    /// Первое. Лучше вынести метод на уровень класса AppScope, чтобы не раздувать
+    /// код в конструкторе.
+    /// 
+    /// Второе. Это хорошая возможность рассказать про смежный паттерн -
+    /// Фабричный метод. Можно посвятит 1-2 абзаца в статье различиям 
+    /// Абстрактной фабрики и Фабричного метода, это будет очень кстати.
     PlatformWidgetsFactory _createPlatformWidgetsFactory() {
       switch (defaultTargetPlatform) {
         case TargetPlatform.android:
